@@ -1,7 +1,15 @@
 # 毕业纪念册APP 
 ## 产品概况
 
-表格
+## 产品概况
+| 发布日期 | 12/10/2019 |
+| --------   | -----  |
+| 项目名称 | 毕业纪念册app | 
+| 文件状态 | 完善中 | 
+| 文件主人 | 徐嘉慧 | 
+| 领头设计师  | 徐嘉慧 | 
+| 领头开发者  | 徐嘉慧 | 
+| 领头测试者  | 徐嘉慧 | 
 
 ## 介绍
 该产品是为毕业生提供记录校园生活和联结同学间情谊的一个智能化毕业册app。
@@ -32,7 +40,6 @@
 该产品提供多样h5模板，且强调免费性能，但面向场景广泛，不是针对毕业纪念册这一特定场景。
 ![竞品一.png](https://upload-images.jianshu.io/upload_images/9400767-985a54cb5479d576.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-
 **二、毕业纪念册app**
 - **产品介绍**：
 毕业纪念册里都有什么？有什么作用？和爸爸妈妈一起来制作属于自己的独一无二毕业纪念册，做完后再带到幼儿园，找自己的好朋友或是师长留言喔。哇，要贴在纪念册的照片被风吹走了，赶快拿着纪念册把照片接住后黏好，要小心不要接成落叶喔。
@@ -59,13 +66,6 @@ vip享有高级功能的权利：文章智能纠错、文档OCR文字识别、�
 | 方案一 | 一个月 | ¥10 |
 | 方案二 | 三个月 | ¥28 |
 | 方案三 | 永久 | ¥66 |
-
-
-
-
-#### 需要哪些资源，我们有没有能力完成
-
-
 
 ## PRD
 ## 价值主张设计
@@ -111,36 +111,75 @@ vip享有高级功能的权利：文章智能纠错、文档OCR文字识别、�
 | pyecharts可视化数据库 | 同学毕业后去向的清晰地图表 | 次重要 |
 
 ### 原型
-#### 原型1.交互及界面设计
-交互及界面设计：在PRD文件中是否有说明且原型是否有做到：交互及界面设计的某个核心交互环节使用了人工智能的加值
-
-#### 原型2.信息设计
-信息设计：在PRD文件中是否有说明且原型是否有做到：信息设计的某个核心信息或设计使用了人工智能的加值
-
-#### 原型3.原型文档
-原型文档：多少程度上有提供MVP可交互的原型文档，供它人在Github上下载使用
-
-#### 原型4.口头操作说明
-口头操作说明：多少程度上在2-3分钟时间限制内，对听众留下了「的确这是个可行丶可用的人工智能加值产品」的印象
+[原型链接](https://nfunm086.github.io/graduation_Prototype/)
 
 ### API产品使用关键AI或机器学习之API的输出入展示
-#### API1.使用水平
-使用水平：在PRD文件中是否有说明且展示，核心功能所应用的API之输入及输出
 
-#### API2.使用比较分析
-使用比较分析：在PRD文件中是否有说明且提供连结证据，所使用的API是查找过最适用的（主要竞争者无或比较次），如考量其成熟度丶性价比丶等等
+### 人脸识别api
+- **调用**
+```python
+import requests
+import json
+
+subscription_key = "330d54135dbb47d8ad6f40fde2694f5b"
+assert subscription_key
+
+face_api_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect'
+
+image_url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1569222371&di=0f438b7969535c29005e1dcc6da1da5d&imgtype=jpg&er=1&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn03%2F703%2Fw405h298%2F20180609%2F1e52-hcscwxa8290097.png'
+
+headers = {'Ocp-Apim-Subscription-Key': subscription_key}
+
+params = {
+    'returnFaceId': 'true',
+    'returnFaceLandmarks': 'false',
+    'returnFaceAttributes': 'age,gender,emotion',
+}
+
+response = requests.post(face_api_url, params=params,
+                         headers=headers, json={"url": image_url})
+print(response)
+results = response.json()
+results
+```
+
+- **输出示例**
+
+```python
+[{'faceId': 'f37c008d-bef2-4f96-a0ef-542c19e24a9e',
+  'faceRectangle': {'top': 21, 'left': 107, 'width': 72, 'height': 72},
+  'faceAttributes': {'gender': 'male',
+   'age': 36.0,
+   'emotion': {'anger': 0.0,
+    'contempt': 0.001,
+    'disgust': 0.0,
+    'fear': 0.0,
+    'happiness': 0.358,
+    'neutral': 0.64,
+    'sadness': 0.0,
+    'surprise': 0.0}}},
+ {'faceId': '2bd67164-2d39-479a-b0db-3fe6479d2cbc',
+  'faceRectangle': {'top': 44, 'left': 191, 'width': 66, 'height': 66},
+  'faceAttributes': {'gender': 'female',
+   'age': 24.0,
+   'emotion': {'anger': 0.0,
+    'contempt': 0.0,
+    'disgust': 0.0,
+    'fear': 0.072,
+    'happiness': 0.0,
+    'neutral': 0.144,
+    'sadness': 0.002,
+    'surprise': 0.78}}}]
+```
 
 #### 文章标签（百度智能云）
 - **接口描述**：对文章的标题和内容进行深度分析，输出能够反映文章关键信息的主题、话题、实体等多维度标签以及对应的置信度，该技术在个性化推荐、文章聚合、内容检索等场景具有广泛的应用价值。
 - **HTTP 方法**：POST
 - **请求URL**：https://aip.baidubce.com/rpc/2.0/nlp/v1/keyword
-- **调用价目表**
-
-- **优势**
 
 
 #### API3.使用后风险报告
 使用后风险报告：在PRD文件中是否有说明且提供连结证据，所使用的API类别的现在及未来发展性，如API市场竞争程度丶输入输出限制丶定价丶及可替代的程序库（改用自己开发的代码及数据库而不用API）等等
 
 #### API4.加分项
-使用复杂度：用了2个以上机器学习与人工智能的API之输入及输出
+运用了人脸识别api、图像识别api、文章标签api
